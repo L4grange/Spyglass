@@ -159,9 +159,11 @@ public class WordTokenizer implements Tokenizer {
                 return true;
             }
 
-            // If input has length greater than one, the second character must be a letter or digit
+            // In case when ACCEPT_SYMBOLS_AFTER_EXPLICIT is false,
+            // if input has length greater than one, the second character must be a letter or digit
             // Return true if and only if second character is a letter or digit, i.e. "@d"
-            return Character.isLetterOrDigit(token.charAt(1));
+            // Otherwise, return true
+            return mConfig.ACCEPT_SYMBOLS_AFTER_EXPLICIT || Character.isLetterOrDigit(token.charAt(1));
 
         } else if (token.length() >= threshold) {
 

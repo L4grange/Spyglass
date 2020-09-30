@@ -53,6 +53,7 @@ public class GridMentions extends AppCompatActivity implements QueryTokenReceive
             .setExplicitChars("")
             .setMaxNumKeywords(2)
             .setThreshold(1)
+            .setAcceptSymbolsAfterExplicit(false)
             .build();
 
     private RecyclerView recyclerView;

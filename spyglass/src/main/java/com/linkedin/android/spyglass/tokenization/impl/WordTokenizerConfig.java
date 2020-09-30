@@ -37,16 +37,21 @@ public class WordTokenizerConfig {
     // Characters to use to separate words
     @NonNull public final String WORD_BREAK_CHARS;
 
+    // Set to true to accept symbols after the explicit meniton characters as valid mention queries
+    public boolean ACCEPT_SYMBOLS_AFTER_EXPLICIT;
+
     private WordTokenizerConfig(final @NonNull String lineSeparator,
                                 final int threshold,
                                 final int maxNumKeywords,
                                 final @NonNull String explicitChars,
-                                final @NonNull String wordBreakChars) {
+                                final @NonNull String wordBreakChars,
+                                final boolean acceptSymbolsAfterExplicit) {
         LINE_SEPARATOR = lineSeparator;
         THRESHOLD = threshold;
         MAX_NUM_KEYWORDS = maxNumKeywords;
         EXPLICIT_CHARS = explicitChars;
         WORD_BREAK_CHARS = wordBreakChars;
+        ACCEPT_SYMBOLS_AFTER_EXPLICIT = acceptSymbolsAfterExplicit;
     }
 
     public static class Builder {
@@ -57,6 +62,7 @@ public class WordTokenizerConfig {
         private int maxNumKeywords = 1;
         private String explicitChars = "@";
         private String wordBreakChars = " ." + System.getProperty("line.separator");
+        private boolean acceptSymbolsAfterExplicit = false;
 
         @NonNull
         public Builder setLineSeparator(@NonNull String lineSeparator) {
@@ -89,8 +95,14 @@ public class WordTokenizerConfig {
         }
 
         @NonNull
+        public Builder setAcceptSymbolsAfterExplicit(boolean acceptSymbolsAfterExplicit) {
+            this.acceptSymbolsAfterExplicit = acceptSymbolsAfterExplicit;
+            return this;
+        }
+
+        @NonNull
         public WordTokenizerConfig build() {
-            return new WordTokenizerConfig(lineSeparator, threshold, maxNumKeywords, explicitChars, wordBreakChars);
+            return new WordTokenizerConfig(lineSeparator, threshold, maxNumKeywords, explicitChars, wordBreakChars, acceptSymbolsAfterExplicit);
         }
     }
 }
